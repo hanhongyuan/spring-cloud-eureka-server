@@ -1,0 +1,22 @@
+server:
+  port: 8011
+spring:
+  application:
+    name: eureka-server-clustered
+    
+eureka:
+  instance:
+    hostname: 192.168.0.24
+    prefer-ip-address: true
+  client: 
+      registerWithEureka: true
+      fetchRegistry: true
+      serviceUrl:
+        defaultZone: http://192.168.0.25:8012/eureka/,http://192.168.0.26:8013/eureka/
+  server:
+    registry-sync-retry-wait-ms: 500 #服务器注册表同步重试等待毫秒
+    a-sgcache-expiry-timeout-ms: 60000
+    eviction-interval-timer-in-ms: 30000 #服务器迁移间隔时间
+    peer-eureka-nodes-update-interval-ms: 15000 #eureka所有节点更新间隔
+    renewal-threshold-update-interval-ms: 30000 #更新阈值更新间隔
+    wait-time-in-ms-when-sync-empty: 0 #当同步为空时的等待时间
