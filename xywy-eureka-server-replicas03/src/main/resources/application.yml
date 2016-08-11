@@ -20,7 +20,7 @@ spring:
   
 eureka:
   server:
-    wait-time-in-ms-when-sync-empty: 0
+    wait-time-in-ms-when-sync-empty: 0 #当同步为空时的等待时间  
   client: 
       register-with-eureka: false #是否注册自身到eureka服务器
       fetch-registry: false #是否从eureka服务器获取注册信息
