@@ -1,22 +1,33 @@
+#服务端口
 server:
   port: 8011
+ 
+endpoints: 
+  refresh:
+    enabled: true
+  restart:
+    enabled: true
+  shutdown: 
+    enabled: true #启用shutdown
+    sensitive: false #禁用密码验证 
+  health:
+    sensitive: false
+    
+#服务名
 spring:
   application:
     name: eureka-server-clustered
-    
+  
 eureka:
-  instance:
-    hostname: 192.168.0.24
-    prefer-ip-address: true
+  server:
+    wait-time-in-ms-when-sync-empty: 0
   client: 
-      registerWithEureka: true
-      fetchRegistry: true
+      register-with-eureka: false #是否注册自身到eureka服务器
+      fetch-registry: false #是否从eureka服务器获取注册信息
       serviceUrl:
         defaultZone: http://192.168.0.25:8012/eureka/,http://192.168.0.26:8013/eureka/
-  server:
-    registry-sync-retry-wait-ms: 500 #服务器注册表同步重试等待毫秒
-    a-sgcache-expiry-timeout-ms: 60000
-    eviction-interval-timer-in-ms: 30000 #服务器迁移间隔时间
-    peer-eureka-nodes-update-interval-ms: 15000 #eureka所有节点更新间隔
-    renewal-threshold-update-interval-ms: 30000 #更新阈值更新间隔
-    wait-time-in-ms-when-sync-empty: 0 #当同步为空时的等待时间
+  instance: 
+    hostname: 192.168.0.24
+    prefer-ip-address: true
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
